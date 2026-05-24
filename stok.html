@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <title>Stok Bahan Ajar</title>
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- VUE JS 2 -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+
+  <!-- DATA -->
+  <script src="js/dataBahanAjar.js"></script>
+
+</head>
+
+<body>
+
+  <div id="app" class="container">
+
+    <h1>📚 Stok Bahan Ajar UT</h1>
+
+    <!-- FILTER -->
+
+    <div class="filter-box">
+
+      <!-- FILTER UPBJJ -->
+
+      <select v-model="filterUpbjj">
+
+        <option value="">
+          Semua UPBJJ
+        </option>
+
+        <option
+          v-for="upbjj in upbjjList"
+          :key="upbjj"
+        >
+
+          {{ upbjj }}
+
+        </option>
+
+      </select>
+
+      <!-- FILTER KATEGORI -->
+
+      <select
+        v-model="filterKategori"
+        v-if="filterUpbjj"
+      >
+
+        <option value="">
+          Semua Kategori
+        </option>
+
+        <option
+          v-for="kategori in kategoriList"
+          :key="kategori"
+        >
+
+          {{ kategori }}
+
+        </option>
+
+      </select>
+
+      <!-- SORT -->
+
+      <select v-model="sortBy">
+
+        <option value="">
+          Sort Data
+        </option>
+
+        <option value="judul">
+          Judul
+        </option>
+
+        <option value="stok">
+          Stok
+        </option>
+
+        <option value="harga">
+          Harga
+        </option>
+
+      </select>
+
+      <!-- WARNING BUTTON -->
+
+      <button
+        @click="toggleWarning"
+        :class="warningOnly
+          ? 'danger-btn'
+          : 'warning-btn'"
+      >
+
+        {{ warningOnly
+          ? 'Tampilkan Semua'
+          : 'Warning Stock'
+        }}
+
+      </button>
+
+      <!-- RESET -->
+
+      <button @click="resetFilter">
+
+        Reset
+
+      </button>
+
+    </div>
+
+    <!-- TABLE -->
+
+    <table>
+
+      <thead>
+
+        <tr>
+
+          <th>Kode</th>
+          <th>Judul</th>
+          <th>Kategori</th>
+          <th>UPBJJ</th>
+          <th>Lokasi Rak</th>
+          <th>Harga</th>
+          <th>Qty</th>
+          <th>Safety</th>
+          <th>Status</th>
+          <th>Catatan</th>
+
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+        <tr
+          v-for="item in filteredStok"
+          :key="item.kode"
+        >
+
+          <!-- KODE -->
+
+          <td>
+            {{ item.kode }}
+          </td>
+
+          <!-- JUDUL -->
+
+          <td>
+            {{ item.judul }}
+          </td>
+
+          <!-- KATEGORI -->
+
+          <td>
+            {{ item.kategori }}
+          </td>
+
+          <!-- UPBJJ -->
+
+          <td>
+            {{ item.upbjj }}
+          </td>
+
+          <!-- LOKASI -->
+
+          <td>
+            {{ item.lokasiRak }}
+          </td>
+
+          <!-- HARGA -->
+
+          <td>
+            Rp {{ item.harga }}
+          </td>
+
+          <!-- QTY -->
+
+          <td>
+
+            <input
+              type="number"
+              v-model.number="item.qty"
+            >
+
+          </td>
+
+          <!-- SAFETY -->
+
+          <td>
+            {{ item.safety }}
+          </td>
+
+          <!-- STATUS -->
+
+          <td>
+
+            <!-- KOSONG -->
+
+            <span
+              v-if="item.qty === 0"
+              class="danger"
+            >
+
+              ❌ Kosong
+
+            </span>
+
+            <!-- MENIPIS -->
+
+            <span
+              v-else-if="item.qty < item.safety"
+              class="warning"
+            >
+
+              ⚠ Menipis
+
+            </span>
+
+            <!-- AMAN -->
+
+            <span
+              v-else
+              class="safe"
+            >
+
+              ✔ Aman
+
+            </span>
+
+          </td>
+
+          <!-- CATATAN -->
+
+          <td v-html="item.catatanHTML"></td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+    <!-- FORM TAMBAH DATA -->
+
+<h2>➕ Tambah Data Bahan Ajar</h2>
+
+<div class="stok-form">
+
+  <form @submit.prevent="tambahData">
+
+    <div class="stok-grid">
+
+      <!-- KODE -->
+
+      <div>
+
+        <label>Kode Mata Kuliah</label>
+
+        <input
+          v-model="form.kode"
+          placeholder="Contoh: EKMA4116"
+        >
+
+      </div>
+
+      <!-- KATEGORI -->
+
+      <div>
+
+        <label>Kategori</label>
+
+        <select v-model="form.kategori">
+
+          <option disabled value="">
+            Pilih Kategori
+          </option>
+
+          <option
+            v-for="kategori in kategoriList"
+            :key="kategori"
+          >
+
+            {{ kategori }}
+
+          </option>
+
+        </select>
+
+      </div>
+
+      <!-- JUDUL -->
+
+      <div>
+
+        <label>Judul Mata Kuliah</label>
+
+        <input
+          v-model="form.judul"
+          placeholder="Masukkan Judul Mata Kuliah"
+        >
+
+      </div>
+
+     
+
+      <!-- UPBJJ -->
+
+      <div>
+
+        <label>UPBJJ</label>
+
+        <select v-model="form.upbjj">
+
+          <option disabled value="">
+            Pilih UPBJJ
+          </option>
+
+          <option
+            v-for="upbjj in upbjjList"
+            :key="upbjj"
+          >
+
+            {{ upbjj }}
+
+          </option>
+
+        </select>
+
+      </div>
+
+      <!-- LOKASI -->
+
+      <div>
+
+        <label>Lokasi Rak</label>
+
+        <input
+          v-model="form.lokasiRak"
+          placeholder="Contoh: R1-A3"
+        >
+
+      </div>
+
+      <!-- HARGA -->
+
+      <div>
+
+        <label>Harga</label>
+
+          <input
+            type="text"
+            v-model="form.harga"
+            placeholder="Contoh: 65.000"
+          >
+
+        </div>
+
+      <!-- JUMLAH STOK -->
+
+      <div>
+
+        <label>Jumlah Stok</label>
+
+        <input
+          type="number"
+          v-model.number="form.qty"
+          placeholder="Masukkan Jumlah Stok"
+        >
+
+      </div>
+
+    <!-- CATATAN -->
+
+    <div class="full-width">
+
+      <label>Catatan</label>
+
+      <input
+        v-model="form.catatanHTML"
+        placeholder="Masukkan Catatan"
+      >
+
+    </div>
+
+    <!-- SAFETY STOCK -->
+
+      <div>
+
+        <label>Safety Stock</label>
+
+        <input
+          type="number"
+          v-model.number="form.safety"
+          placeholder="Masukkan Safety Stock"
+        >
+
+      </div>
+
+    </div>
+
+    <!-- BUTTON -->
+
+    <button type="submit">
+
+      Tambah Data
+
+    </button>
+
+  </form>
+
+</div>
+
+  <!-- APP JS -->
+
+  <script src="js/stok-app.js"></script>
+
+</body>
+
+</html>

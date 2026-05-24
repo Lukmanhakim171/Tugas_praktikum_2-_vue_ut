@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <title>Tracking Delivery Order</title>
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- VUE JS 2 -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+
+  <!-- DATA -->
+  <script src="js/dataBahanAjar.js"></script>
+
+</head>
+
+<body>
+
+  <div id="trackingApp" class="container">
+
+    <h1>🚚 Tracking Delivery Order</h1>
+
+    <!-- FORM -->
+
+    <div class="tracking-form">
+
+      <form @submit.prevent="tambahTracking">
+
+        <div class="tracking-grid">
+
+          <!-- NOMOR DO -->
+
+          <div>
+
+            <label>Nomor DO</label>
+
+            <input
+              :value="nomorDO"
+              readonly
+            >
+
+          </div>
+
+           <!-- PAKET -->
+
+          <div>
+
+            <label>Paket Bahan Ajar</label>
+
+            <select v-model="selectedPaket">
+
+              <option :value="null" disabled>
+                Pilih Paket
+              </option>
+
+              <option
+                v-for="item in paket"
+                :key="item.kode"
+                :value="item"
+              >
+
+                {{ item.kode }} -
+                {{ item.nama }}
+
+              </option>
+
+            </select>
+
+          </div>
+
+          <!-- NAMA -->
+
+          <div>
+
+            <label>Nama Mahasiswa</label>
+
+            <input
+              v-model="form.nama"
+              placeholder="Masukkan Nama"
+            >
+
+          </div>
+
+            <!-- EKSPEDISI -->
+
+          <div>
+
+            <label>Ekspedisi</label>
+
+            <select v-model="form.ekspedisi">
+
+              <option disabled value="">
+                Pilih Ekspedisi
+              </option>
+
+              <option
+                v-for="item in pengirimanList"
+                :key="item.kode"
+                :value="item.nama"
+              >
+
+                {{ item.nama }}
+
+              </option>
+
+            </select>
+
+          </div>
+
+
+
+          <!-- NIM -->
+
+          <div>
+
+            <label>NIM</label>
+
+            <input
+              v-model="form.nim"
+              placeholder="Masukkan NIM"
+            >
+
+          </div>
+
+          <!-- TANGGAL -->
+
+          <div>
+
+            <label>Tanggal Kirim</label>
+
+            <input
+              type="date"
+              v-model="form.tanggalKirim"
+            >
+
+          </div>
+
+        </div>
+
+        <!-- DETAIL PAKET -->
+
+        <div
+          v-if="selectedPaket"
+          class="package-detail"
+        >
+
+          <h3>📚 Detail Paket</h3>
+
+          <ul>
+
+            <li
+              v-for="isi in selectedPaket.isi"
+              :key="isi"
+            >
+
+              {{ isi }}
+
+            </li>
+
+          </ul>
+
+          <div class="price-box">
+
+            Total Harga:
+            Rp {{ totalHarga }}
+
+          </div>
+
+        </div>
+
+        <button type="submit">
+          Simpan Tracking
+        </button>
+
+      </form>
+
+    </div>
+
+    <!-- LIST TRACKING -->
+
+    <div
+      class="tracking-card"
+      v-for="(item, key) in tracking"
+      :key="key"
+    >
+
+      <!-- HEADER -->
+
+      <div class="tracking-header">
+
+        <h3>
+          🚚 {{ key }}
+        </h3>
+
+        <span
+          class="badge"
+          :class="{
+            'badge-process': item.status == 'Diproses',
+            'badge-send': item.status == 'Dalam Perjalanan',
+            'badge-done': item.status == 'Selesai'
+          }"
+        >
+
+          {{ item.status }}
+
+        </span>
+
+      </div>
+
+      <!-- DATA -->
+
+      <p>
+        <strong>Nama:</strong>
+        {{ item.nama }}
+      </p>
+
+      <p>
+        <strong>NIM:</strong>
+        {{ item.nim }}
+      </p>
+
+      <p>
+        <strong>Ekspedisi:</strong>
+        {{ item.ekspedisi }}
+      </p>
+
+      <p>
+        <strong>Tanggal Kirim:</strong>
+        {{ item.tanggalKirim }}
+      </p>
+
+      <div class="price-box">
+
+        Total:
+        Rp {{ item.total }}
+
+      </div>
+
+      <!-- TIMELINE -->
+
+      <div class="timeline">
+
+        <div
+          class="timeline-item"
+          v-for="jalan in item.perjalanan"
+          :key="jalan.waktu"
+        >
+
+          <small>
+
+            {{ jalan.waktu }}
+
+          </small>
+
+          <p>
+
+            {{ jalan.keterangan }}
+
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- APP JS -->
+
+  <script src="js/tracking-app.js"></script>
+
+</body>
+
+</html>
