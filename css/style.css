@@ -1,0 +1,440 @@
+/* ================================= */
+/* GLOBAL */
+/* ================================= */
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f4f4f4;
+  margin: 20px;
+  color: #333;
+}
+
+.container {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: #1e3a5f;
+}
+
+h1 {
+  margin-bottom: 25px;
+}
+
+/* ================================= */
+/* HALAMAN MENU */
+/* ================================= */
+
+.hero {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.hero p {
+  color: #666;
+  font-size: 18px;
+}
+
+.menu-container {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin-top: 40px;
+}
+
+.menu-card {
+  width: 280px;
+  background: white;
+  border-radius: 15px;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: 0.3s;
+}
+
+.menu-card:hover {
+  transform: translateY(-5px);
+}
+
+.menu-card p {
+  color: #555;
+  line-height: 1.6;
+}
+
+.menu-card a {
+  display: inline-block;
+  margin-top: 15px;
+  text-decoration: none;
+  background: #1e3a5f;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+.menu-card a:hover {
+  background: #295285;
+}
+
+/* ================================= */
+/* FILTER */
+/* ================================= */
+
+.filter-box {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* ================================= */
+/* FORM GLOBAL */
+/* ================================= */
+
+form {
+  margin-top: 20px;
+}
+
+input,
+select,
+button {
+  padding: 10px;
+  margin: 5px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+input,
+select {
+  min-width: 180px;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: #1e3a5f;
+  box-shadow: 0 0 5px rgba(30,58,95,0.2);
+}
+
+button {
+  background: #1e3a5f;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #295285;
+}
+
+/* ================================= */
+/* WARNING BUTTON */
+/* ================================= */
+
+.warning-btn {
+  background: orange;
+  color: white;
+}
+
+.warning-btn:hover {
+  background: darkorange;
+}
+
+.danger-btn {
+  background: red;
+  color: white;
+}
+
+.danger-btn:hover {
+  background: darkred;
+}
+
+/* ================================= */
+/* TABLE */
+/* ================================= */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background: white;
+}
+
+table,
+th,
+td {
+  border: 1px solid #ddd;
+}
+
+th {
+  background: #1e3a5f;
+  color: white;
+}
+
+th,
+td {
+  padding: 12px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+tbody tr:nth-child(even) {
+  background: #f9f9f9;
+}
+
+tbody tr:hover {
+  background: #eef4ff;
+}
+
+/* ================================= */
+/* STATUS STOK */
+/* ================================= */
+
+.safe {
+  color: green;
+  font-weight: bold;
+}
+
+.warning {
+  color: orange;
+  font-weight: bold;
+}
+
+.danger {
+  color: red;
+  font-weight: bold;
+}
+
+/* ================================= */
+/* FORM STOK */
+/* ================================= */
+
+.stok-form {
+  background: #f8fbff;
+  padding: 25px;
+  border-radius: 15px;
+  margin-top: 20px;
+  border: 1px solid #dbe7f5;
+}
+
+.stok-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.stok-grid div {
+  display: flex;
+  flex-direction: column;
+}
+
+.stok-grid label,
+.full-width label {
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #1e3a5f;
+}
+
+.full-width {
+  margin-top: 20px;
+}
+
+.stok-form button {
+  margin-top: 25px;
+  width: 100%;
+  padding: 14px;
+  font-size: 16px;
+  border-radius: 10px;
+}
+
+/* ================================= */
+/* TRACKING PAGE */
+/* ================================= */
+
+.tracking-form {
+  background: #f8fbff;
+  padding: 25px;
+  border-radius: 15px;
+  margin-bottom: 30px;
+  border: 1px solid #dbe7f5;
+}
+
+/* GRID FORM */
+
+.tracking-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* INPUT AREA */
+
+.tracking-grid div {
+  display: flex;
+  flex-direction: column;
+}
+
+.tracking-grid label {
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #1e3a5f;
+}
+
+.tracking-grid input,
+.tracking-grid select {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* BUTTON */
+
+.tracking-form button {
+  margin-top: 20px;
+  width: 100%;
+  padding: 14px;
+  font-size: 16px;
+  border-radius: 10px;
+}
+
+/* DETAIL PAKET */
+
+.package-detail {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  margin-top: 20px;
+  border-left: 5px solid #1e3a5f;
+}
+
+.package-detail ul {
+  padding-left: 20px;
+}
+
+/* PRICE */
+
+.price-box {
+  margin-top: 15px;
+  background: #eef4ff;
+  padding: 15px;
+  border-radius: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #1e3a5f;
+}
+
+/* TRACKING CARD */
+
+.tracking-card {
+  background: white;
+  border-radius: 15px;
+  padding: 25px;
+  margin-top: 25px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  border-left: 6px solid #1e3a5f;
+}
+
+/* HEADER */
+
+.tracking-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.tracking-header h3 {
+  margin: 0;
+}
+
+/* BADGE */
+
+.badge {
+  padding: 8px 14px;
+  border-radius: 30px;
+  color: white;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.badge-process {
+  background: orange;
+}
+
+.badge-send {
+  background: #3498db;
+}
+
+.badge-done {
+  background: green;
+}
+
+/* INFO */
+
+.tracking-card p {
+  margin: 10px 0;
+}
+
+/* TIMELINE */
+
+.timeline {
+  margin-top: 25px;
+  border-left: 3px solid #1e3a5f;
+  padding-left: 20px;
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 25px;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -28px;
+  top: 5px;
+  width: 12px;
+  height: 12px;
+  background: #1e3a5f;
+  border-radius: 50%;
+}
+
+.timeline-item small {
+  color: gray;
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* ================================= */
+/* RESPONSIVE */
+/* ================================= */
+
+@media (max-width: 768px) {
+
+  .tracking-grid,
+  .stok-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .filter-box {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  input,
+  select,
+  button {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+}
